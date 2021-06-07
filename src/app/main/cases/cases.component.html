@@ -1,0 +1,39 @@
+<div class="col-xs-12">
+  <div class="d-flex justify-content-center">
+    <form *ngIf="form" [formGroup]="form">
+      <div class="row">       
+        <div class="col-xs-4 col-12 col-md-4 form-group">
+            <input type="text"
+                  class="form-control"
+                  bsDatepicker
+                  [bsConfig]="datePickerConfig"
+                  formControlName="initial"
+                  value="{{ initial.value | date: 'dd/MM/yyyy' }}">
+        </div>
+        <div class="col-xs-4 col-12 col-md-4 form-group">
+            <input type="text"
+                  class="form-control"
+                  bsDatepicker
+                  [bsConfig]="datePickerConfig"
+                  formControlName="final"
+                  value="{{ final.value | date: 'dd/MM/yyyy' }}">
+        </div>
+        <div class="col-xs-4 col-12 col-md-4">
+          <button type="button" class="btn btn-primary btn-block" (click)="submitFilter();">
+          Filtrar
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="alert alert-warning" role="alert" *ngIf="form.hasError('invalid');">
+            <p class="text-center">
+              <strong>Atenção!</strong> As datas são inválidas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<srs-graphics></srs-graphics>
