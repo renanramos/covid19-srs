@@ -7,6 +7,7 @@ import { CasesComponent } from './cases.component';
 import { CasesRoutingModule } from './cases-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GraphicsModule } from 'src/app/shared/graphics/graphics.module';
+import { FormModuleModule } from 'src/app/shared/form/form-module.module';
 
 @NgModule({
 	declarations: [CasesComponent],
@@ -16,6 +17,7 @@ import { GraphicsModule } from 'src/app/shared/graphics/graphics.module';
 		ChartsModule,
 		BsDatepickerModule.forRoot(),
 		ReactiveFormsModule,
+		FormModuleModule,
 		GraphicsModule
 	],
 	exports: [CasesComponent]

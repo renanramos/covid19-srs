@@ -6,6 +6,7 @@ import { ChartsModule } from 'ng2-charts';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GraphicsModule } from 'src/app/shared/graphics/graphics.module';
+import { FormModuleModule } from 'src/app/shared/form/form-module.module';
 
 @NgModule({
 	declarations: [DeathsComponent],
@@ -15,6 +16,7 @@ import { GraphicsModule } from 'src/app/shared/graphics/graphics.module';
 		ChartsModule,
 		BsDatepickerModule.forRoot(),
 		ReactiveFormsModule,
+		FormModuleModule,
 		GraphicsModule
 	],
 	exports: [DeathsComponent]

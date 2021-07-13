@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { ConstantValues } from 'src/app/model/constants';
+import { DateForm } from 'src/app/model/date-form';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,26 +12,43 @@ import { ConstantValues } from 'src/app/model/constants';
 export class DataUtil {
 	data: any[] = [];
 	chartData: ChartDataSets[] = [];
+	dateForm: DateForm = new DateForm();
 
 	constructor(private datePipe: DatePipe){ }
 
-	setDateFormValues(form: FormGroup) {
-		const initial = form.get('initial');
-		if (initial && !initial.value) {
-
+	setDateFormValues(form?: FormGroup) {
+		const initial = form && form.get('initial');
+		
+		const today = new Date();
+		const firstDay = new Date(today.getFullYear(), today.getMonth() -1, today.getDate());
+		
+		if (form && initial && !initial.value) {
       const final = form.get('final');
-
-      const today = new Date();
-		  const firstDay = new Date(today.getFullYear(), today.getMonth() -1, today.getDate());
 
 			initial?.setValue(firstDay);
 			final?.setValue(today);
 		}
+		else
+		{
+			this.dateForm.initial = firstDay;
+			this.dateForm.final = today;
+		}
 	}
 
-	async filterChartData(form: FormGroup, data: any[], chartLabels: Label[], chartData: ChartDataSets[]) {
-		const initialDate = form.get('initial')?.value;
-		const finalDate = form.get('final')?.value;
+	async filterChartData(dateForm: DateForm, data: any[], chartLabels: Label[], chartData: ChartDataSets[]) {
+
+	  if (!dateForm)
+		{
+			this.setDateFormValues();
+		}
+		else
+		{
+			this.dateForm.initial = dateForm.initial;
+			this.dateForm.final = dateForm.final;
+		}
+
+		const initialDate = this.dateForm?.initial;
+		const finalDate = this.dateForm?.final;
 
 		const dataTotal = data[ConstantValues.TOTAL_INDEX].data.filter((c: any) => this.isValidDate(new Date(c[0]), initialDate, finalDate));
 		const dataNew = data[ConstantValues.NEW_INDEX].data.filter((c: any) => this.isValidDate(new Date(c[0]), initialDate, finalDate));
